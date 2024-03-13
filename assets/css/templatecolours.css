@@ -1,0 +1,26 @@
+body {
+  background-color: pink;
+}
+
+header {
+  background-color: green;
+}
+
+main {
+  background-color: blue;
+}
+
+section {
+  background-color: orange;
+}
+
+aside {
+  background-color: yellow;
+}
+
+article {
+  background-color: purple;
+}
+footer {
+  background-color: aqua;
+}
