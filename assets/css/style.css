@@ -4,17 +4,87 @@ body {
   margin-right: auto;
   margin-top: 0;
   color: black;
-}
-
-.logo {
-  :20px ;
+  box-sizing: border-box;
 }
 
 .header-container {
   display: flex;
   justify-content: space-between;
+  padding: 20px 0 20px 0;
 }
 
 .nav-items {
-  padding-top: 15px;
+  padding-top: 25px;
+}
+
+nav ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+nav ul li {
+  float: left;
+}
+
+nav ul li a {
+  display: block;
+  color: #000000;
+  text-align: center;
+  padding-left: 30px;
+  text-decoration: none;
+}
+
+li a:hover {
+  color: #f53132;
+}
+
+.register {
+  padding: 15px 10px;
+}
+.login {
+  border: 0;
+  margin-right: 20px;
+  padding: 10px 20px 10px 20px;
+  background-color: white;
+  cursor: pointer;
+}
+.signup {
+  padding: 10px 20px 10px 20px;
+  border: 0;
+  border-radius: 20px;
+  background-color: #f53132;
+  color: white;
+  cursor: pointer;
+}
+
+.hero {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 500px;
+  background-image: url("/assets/images/main_hero_image.jpg");
+  background-position: center;
+  background-repeat: none;
+  background-size: 100%;
+  border-radius: 20px;
+}
+
+.hero-text {
+  display: block;
+  height: 100%;
+  width: fit-content;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  padding: 0 20px 10px 20px;
+}
+
+.hero-signup-link {
+  background-color: transparent;
+  color: white;
+  border: 0;
+  cursor: pointer;
 }
