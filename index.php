@@ -1,3 +1,11 @@
+<?php
+    session_start();
+    if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
+        header("location: home.php");
+        exit;
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -5,7 +13,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Savor Palette Recipes</title>
     <link rel="stylesheet" href="assets/css/style.css" />
-    <link rel="stylesheet" href="assets/css/templatecolours.css" />
+    <link rel="stylesheet" href="assets/css/templatecolourss.css" />
   </head>
   <body>
     <header class="header-container">
@@ -26,8 +34,8 @@
       </nav>
 
       <div class="register">
-        <button class="login">Sign In</button>
-        <button class="signup">Sign Up</button>
+        <a class="login" href="login.php">Sign In</a>
+        <a class="signup" href="signup.html">Sign Up</a>
       </div>
     </header>
 
@@ -44,42 +52,44 @@
           />
         </div>
       </section>
-      <section>
+      <section class="recipe-start">
         <h2>Recipes</h2>
-        <div>
+        <div class="search">
           <input type="text" />
           <button>Search</button>
         </div>
-        <div>
+        <div class="sort">
           <button>Sort by category</button>
           <button>sort by location</button>
         </div>
       </section>
-      <aside></aside>
-      <aside></aside>
+      <section class="recipe-display">
+        <aside class="aside-left"></aside>
+        <aside class="aside-right"></aside>
+      </section>
 
-      <section>
+      <section class="subscribe-section">
         <h3>Be the first to know about new trending recipes & more</h3>
         <form action="POST">
-          <input type="email" name="" id="" />
+          <input type="email" name="" id="" placeholder="email" />
           <input type="button" value="Subscribe" />
         </form>
       </section>
-
-      <section></section>
     </main>
 
-    <footer>
+    <footer class="header-container">
       <div>
-        <img src="assets/images/logo.png" alt="" />
+        <img src="assets/images/Untitled design copy.png" alt="" />
       </div>
-      <nav>
-        <a href="#">Home</a>
-
-        <a href="#">Browse Recipes</a>
-        <a href="#">Contact</a>
+      <nav class="nav-items">
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Browse Recipes</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
       </nav>
-      <p>c SavorPalette, Inc. 2024. We love our users!</p>
+      <p>(c) SavorPalette, Inc. 2024. We love our users!</p>
     </footer>
   </body>
 </html>
