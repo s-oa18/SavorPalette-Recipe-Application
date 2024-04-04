@@ -1,40 +1,48 @@
 <?php
+session_start(); // Start or resume the session
 
 $is_invalid = false;
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     
     $mysqli = require __DIR__ . "/database.php";
+
+    $email = $_POST["email"];
+    $password = $_POST['password'];
+    $role = $_POST['role'];
     
-    $sql = sprintf("SELECT * FROM user
+    $sql = sprintf("SELECT * FROM users
                     WHERE email = '%s'",
-                   $mysqli->real_escape_string($_POST["email"]));
+                   $mysqli->real_escape_string($email));
     
     $result = $mysqli->query($sql);
     
     $user = $result->fetch_assoc();
     
-    if ($user) {
-        
-        if (password_verify($_POST["password"], $user["password_hash"])) {
-			session_start();
-			session_regenerate_id();
-			$_SESSION["user"] = $user["name"];
-			header("Location: home.php");
-			exit;
-		}
-    }
-    
-    $is_invalid = true;
-}
+    if ($user && password_verify($password, $user['password_hash']) && $user['role'] === $role) {
+        // Authentication successful
+        $_SESSION['user_id'] = $user['user_id']; 
+        $_SESSION['role'] = $role; 
 
+        if ($role === 'recipe_seeker') {
+            header("Location: browse_recipes.php"); // Redirect to browse recipe page
+        } elseif ($role === 'cook_chef') {
+            header("Location: home.php"); // Redirect to Cook/Chef dashboard
+        }
+        exit();
+    } else {
+        // Authentication failed
+        $is_invalid = true;
+    }
+}
 ?>
+
 <!DOCTYPE html>
 <html>
 <head>
     <title>Login</title>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css"> -->
     <script src="https://unpkg.com/just-validate@latest/dist/just-validate.production.min.js" ></script>
     <script src="/js/validation.js" defer></script>
 </head>
@@ -47,23 +55,27 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <?php endif; ?>
     
     <form method="post">
+        <div>
         <label for="email">email</label>
         <input type="email" name="email" id="email"
                value="<?= htmlspecialchars($_POST["email"] ?? "") ?>">
+        </div>
         
+        <div>
         <label for="password">Password</label>
         <input type="password" name="password" id="password">
+        </div>
+
+        <div>
+        <label for="role">Role:</label>
+        <select name="role" id="role" required>
+          <option value="recipe_seeker">Recipe Seeker</option>
+          <option value="cook_chef">Cook or Chef</option>
+        </select>
+      </div>
         
-        <button>Log in</button>
+        <input type="submit" value="Login">
     </form>
     
 </body>
 </html>
-
-
-
-
-
-
-
-
