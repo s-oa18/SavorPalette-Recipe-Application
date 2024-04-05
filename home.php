@@ -1,9 +1,11 @@
 <?php
-    session_start();
-    if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
-        header("location: home.php");
-        exit;
-    }
+session_start();
+
+// Check if user is logged in
+if(!isset($_SESSION['user_id'])) {
+    header("location: index.html"); // Redirect to index.php if not logged in
+    exit;
+}
 ?>
 
 <!DOCTYPE html>
@@ -27,10 +29,10 @@
       <nav class="nav-items">
         <ul>
           <li><a href="#">Home</a></li>
-          <li><a href="#">About</a></li>
-          <li><a href="#">Browse Recipes</a></li>
-          <li><a href="#">Contact</a></li>
-          <li><a href="#">Manage Recipes</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="browse_recipes.php">Browse Recipes</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="manage_recipes.php">Manage Recipes</a></li>
         </ul>
       </nav>
 
@@ -93,4 +95,3 @@
     </footer>
   </body>
 </html>
-

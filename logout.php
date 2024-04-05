@@ -1,6 +1,6 @@
 <?php
-	session_start();				//retrieve session
-	session_destroy();				//then destroy it
-	header("Location: index.html");	//redirect to login page
-	exit;
+session_start();
+session_destroy(); // Destroy the session
+header("Location: index.html"); // Redirect to index.html after logout
+exit;
 ?>

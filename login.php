@@ -1,3 +1,5 @@
+
+
 <?php
 session_start(); // Start or resume the session
 
@@ -76,6 +78,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         
         <input type="submit" value="Login">
     </form>
+    <div class="new_user">
+      <p class="new">Already a User?</p>
+      <p><a class="register" href="signup.html">Sign up</a></p>
+    </div>
     
 </body>
 </html>
+
