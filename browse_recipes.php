@@ -13,17 +13,48 @@ function getAllRecipes($mysqli) {
     return $recipes;
 }
 
-// Get all recipes
-$allRecipes = getAllRecipes($mysqli);
+// Initialize variables
+$allRecipes = [];
+$searchTerm = '';
+$category = '';
+$location = '';
 
-// Handle search functionality
+// Check if search parameters are present in the URL
 if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['search'])) {
     $searchTerm = $_GET['search'];
-    // Perform search query and update $allRecipes accordingly
-    // Example: $allRecipes = performSearch($mysqli, $searchTerm);
-}
+    $category = isset($_GET['category']) ? $_GET['category'] : '';
+    $location = isset($_GET['location']) ? $_GET['location'] : '';
 
+    // Construct the search query based on search term, category, and location
+    $sql = "SELECT r.recipe_id, r.title, r.image_url, u.username 
+            FROM recipes r 
+            JOIN users u ON r.user_id = u.user_id 
+            WHERE r.title LIKE '%$searchTerm%'";
+
+    if (!empty($category)) {
+        $sql .= " AND r.category = '$category'";
+    }
+
+    if (!empty($location)) {
+        $sql .= " AND r.location = '$location'";
+    }
+
+    // Execute the search query
+    $result = $mysqli->query($sql);
+    while ($row = $result->fetch_assoc()) {
+        $allRecipes[] = $row;
+    }
+} else {
+    // If no search parameters are present, get all recipes
+    $allRecipes = getAllRecipes($mysqli);
+}
 ?>
+
+
+
+
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -50,6 +81,8 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['search'])) {
 </head>
 <body>
     <h2>Browse Recipes</h2>
+    <p><a href="home.php">Home</a></p>
+    <a href="browse_recipes.php">Browse All Recipes</a>
     
     <!-- Search form -->
     <form action="" method="GET">
@@ -72,8 +105,10 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['search'])) {
         <button type="submit">Search</button>
     </form>
     
+   
     <!-- Display recipes -->
     <div class="recipe-container">
+    
         <?php foreach ($allRecipes as $recipe): ?>
             <div class="recipe-card">
                 <img src="<?= $recipe['image_url'] ?>" alt="<?= $recipe['title'] ?>">
