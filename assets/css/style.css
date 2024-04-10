@@ -71,7 +71,7 @@ li a:hover {
   justify-content: center;
   align-items: center;
   min-height: 500px;
-  background-image: url("/assets/images/main_hero_image.jpg");
+  /* background-image: url("/assets/images/main_hero_image.jpg"); */
   background-position: center;
   background-repeat: none;
   background-size: cover;
@@ -131,4 +131,18 @@ li a:hover {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.recipe-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-gap: 20px;
+}
+.recipe-card {
+  border: 1px solid #ccc;
+  padding: 10px;
+}
+.recipe-card img {
+  max-width: 100%;
+  height: auto;
 }

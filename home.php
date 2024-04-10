@@ -1,9 +1,8 @@
 <?php
 session_start();
 
-// Check if user is logged in
 if(!isset($_SESSION['user_id'])) {
-    header("location: index.html"); // Redirect to index.php if not logged in
+    header("location: index.html"); 
     exit;
 }
 ?>

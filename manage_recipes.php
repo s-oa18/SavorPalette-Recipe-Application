@@ -1,18 +1,23 @@
 <?php
-// Include the database connection file
-$mysqli = require 'database.php';
-
-// Check if user is logged in (replace this with your actual authentication logic)
 session_start();
-if (!isset($_SESSION['user_id'])) {
-    echo "User is not logged in.";
-    exit();
+
+include 'database.php';
+
+$is_invalid = false;
+
+// Check if success message exists in session
+if (isset($_SESSION['success_message'])) {
+    echo "<p>{$_SESSION['success_message']}</p>";
+    unset($_SESSION['success_message']); // Remove success message from session
 }
 
-// Get user_id from session
-$user_id = $_SESSION['user_id'];
+// Check if error message exists in session
+if (isset($_SESSION['error_message'])) {
+    echo "<p>{$_SESSION['error_message']}</p>";
+    unset($_SESSION['error_message']); // Remove error message from session
+}
 
-// Function to fetch user's recipes from the database
+// fetch user's recipes from the database
 function getUserRecipes($mysqli, $user_id, $searchTerm = null) {
     $recipes = [];
     $sql = "SELECT recipe_id, title, image_url FROM recipes WHERE user_id = ?";
@@ -34,6 +39,12 @@ function getUserRecipes($mysqli, $user_id, $searchTerm = null) {
     return $recipes;
 }
 
+// Get user_id from session
+$user_id = $_SESSION['user_id'];
+
+// Initialize variables
+$userRecipes = [];
+
 // Handle search functionality
 if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['search'])) {
     $searchTerm = $_GET['search'];
@@ -43,7 +54,6 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['search'])) {
     // Get user's recipes without search term (display all recipes)
     $userRecipes = getUserRecipes($mysqli, $user_id);
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -53,7 +63,6 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['search'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SavorPalette - Manage Recipes</title>
     <style>
-        /* Add your CSS styles here */
         .recipe-container {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -72,9 +81,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['search'])) {
 <body>
     <h2>Manage Recipes</h2>
     <p><a href="home.php">Home</a></p>
-    <p><a href="manage_recipes.php">View All Recipes</a></p>
 
-    <!-- Search form -->
     <form action="" method="GET">
         <input type="text" name="search" placeholder="Search your recipes">
         <button type="submit">Search</button>
@@ -82,7 +89,6 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['search'])) {
 
     <h2><a href="add_recipe.html">Add Recipe</a></h2>
 
-    <!-- Display user's recipes -->
     <div class="recipe-container">
         <?php foreach ($userRecipes as $recipe): ?>
             <div class="recipe-card">

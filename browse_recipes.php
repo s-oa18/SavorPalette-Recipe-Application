@@ -50,12 +50,6 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['search'])) {
 }
 ?>
 
-
-
-
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -115,8 +109,45 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['search'])) {
                 <h3><?= $recipe['title'] ?></h3>
                 <p>By: <?= $recipe['username'] ?></p>
                 <a href="view_recipe.php?recipe_id=<?= $recipe['recipe_id'] ?>">View</a>
+                <form action="save_recipe.php" method="post">
+                <input type="hidden" name="recipe_id" value="<?= $recipe['recipe_id'] ?>">
+                <button type="submit">Bookmark</button>
+            </form>
             </div>
         <?php endforeach; ?>
     </div>
+
+    <!-- JavaScript code to handle saving a recipe -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add event listeners to all save buttons
+            document.querySelectorAll('.save-button').forEach(function(button) {
+                button.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    var recipeId = this.getAttribute('data-recipe-id');
+                    saveRecipe(recipeId);
+                });
+            });
+        });
+
+        function saveRecipe(recipeId) {
+            // Send an AJAX request to the server to save the recipe
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', 'save_recipe.php', true);
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        // Handle success response (e.g., show a success message)
+                        alert('Recipe saved successfully!');
+                    } else {
+                        // Handle error response (e.g., show an error message)
+                        alert('An error occurred while saving the recipe.');
+                    }
+                }
+            };
+            xhr.send('recipe_id=' + encodeURIComponent(recipeId));
+        }
+    </script>
 </body>
 </html>

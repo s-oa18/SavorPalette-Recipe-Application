@@ -4,14 +4,6 @@ session_start();
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-
-// Check if user is logged in
-// if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
-//     header("location: index.html"); // Redirect to index.html if not logged in
-//     exit;
-// }
-
-// Include the database connection file
 include 'database.php';
 
 $is_invalid = false;
@@ -29,16 +21,11 @@ $cooking_time = $_POST['cooking_time'];
 $category = $_POST['category']; 
 $location = $_POST['location'];
 
-    
-
-
-
 
     // Check if a new image file is uploaded
     if ($_FILES["image"]["size"] > 0) {
         // File upload handling code
         // Add code to move the uploaded file to the desired directory and update the image URL in the database
-        // Example code:
         $target_dir = "assets/images/";
         $target_file = $target_dir . basename($_FILES["image"]["name"]);
         $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
@@ -83,20 +70,21 @@ $stmt = $mysqli->prepare($update_recipe_sql);
 $stmt->bind_param("ssssiiisi", $title, $description, $ingredients, $directions, $servings, $cooking_time, $category, $location, $recipe_id);
 
 
-// Execute the SQL statement
+
 if ($stmt->execute()) {
-    // Set success message in session
+   
     $_SESSION['success_message'] = "Recipe updated successfully.";
-    // Redirect to manage recipes page after successful update
+   
     header("Location: manage_recipes.php");
-    exit(); // Ensure script execution stops after redirection
+    exit();
 } else {
-    echo "Error updating recipe: " . $stmt->error;
+    // Set error message in session
+    $_SESSION['error_message'] = "Error updating recipe: " . $stmt->error;
+   
+    header("Location: manage_recipes.php");
+    exit(); 
 }
 
-
-
-    // Close statement and database connection
     $stmt->close();
     $mysqli->close();
 } else {
@@ -126,6 +114,15 @@ if ($stmt->execute()) {
 </head>
 <body>
     <h2>Edit Recipe</h2>
+
+    <?php
+    // Display success message if it exists
+    if (isset($_SESSION['success_message'])) {
+        echo "<p>{$_SESSION['success_message']}</p>";
+        // Remove the success message from session to prevent it from displaying again
+        unset($_SESSION['success_message']);
+    }
+    ?>
 
 
     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" enctype="multipart/form-data">

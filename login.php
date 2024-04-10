@@ -1,7 +1,7 @@
 
 
 <?php
-session_start(); // Start or resume the session
+session_start(); 
 
 $is_invalid = false;
 
@@ -29,7 +29,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         if ($role === 'recipe_seeker') {
             header("Location: browse_recipes.php"); // Redirect to browse recipe page
         } elseif ($role === 'cook_chef') {
-            header("Location: home.php"); // Redirect to Cook/Chef dashboard
+            header("Location: home.php"); 
+        } elseif($role === 'admin') {
+            header("location: admin_panel.php");
         }
         exit();
     } else {
@@ -44,7 +46,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <head>
     <title>Login</title>
     <meta charset="UTF-8">
-    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css"> -->
+
     <script src="https://unpkg.com/just-validate@latest/dist/just-validate.production.min.js" ></script>
     <script src="/js/validation.js" defer></script>
 </head>
@@ -73,6 +75,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         <select name="role" id="role" required>
           <option value="recipe_seeker">Recipe Seeker</option>
           <option value="cook_chef">Cook or Chef</option>
+          <option value="admin">Administrator</option>
         </select>
       </div>
         

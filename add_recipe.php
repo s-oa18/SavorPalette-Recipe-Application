@@ -1,9 +1,8 @@
 <?php
-// Include the database connection file
+
 $mysqli = require 'database.php';
 
-// Check if user is logged in (replace this with your actual authentication logic)
-// Example: Assume you have stored the user_id in a session variable named 'user_id'
+// Check if user is logged in 
 session_start();
 if (!isset($_SESSION['user_id'])) {
     echo "User is not logged in.";
@@ -15,7 +14,7 @@ $user_id = $_SESSION['user_id'];
 
 // Check if form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Gather form data
+   
     $title = $_POST['title'];
     $description = $_POST['description'];
     $ingredients = $_POST['ingredients'];
@@ -58,13 +57,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->bind_param("issssiisss", $user_id, $title, $description, $ingredients, $directions, $servings, $cooking_time, $category, $location, $target_file);
     
     // Execute the SQL statement
-    if ($stmt->execute()) {
-        echo "Recipe added successfully.";
-    } else {
-        echo "Error: " . $stmt->error;
-    }
+if ($stmt->execute()) {
     
-    // Close statement and database connection
+    $_SESSION['success_message'] = "Recipe added successfully.";
+   
+    header("Location: manage_recipes.php");
+    exit(); 
+} else {
+   
+    $_SESSION['error_message'] = "Error updating recipe: " . $stmt->error;
+   
+    header("Location: manage_recipes.php");
+    exit();
+}
+
+
     $stmt->close();
     $mysqli->close();
 }
