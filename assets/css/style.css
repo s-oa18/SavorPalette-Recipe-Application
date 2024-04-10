@@ -71,7 +71,7 @@ li a:hover {
   justify-content: center;
   align-items: center;
   min-height: 500px;
-  /* background-image: url("/assets/images/main_hero_image.jpg"); */
+  background-image: url("../images/hero_image.jpg");
   background-position: center;
   background-repeat: none;
   background-size: cover;

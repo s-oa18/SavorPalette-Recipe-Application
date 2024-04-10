@@ -8,7 +8,7 @@ include 'database.php';
 
 $is_invalid = false;
 
-// Check if form is submitted
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Gather form data
 $recipe_id = $_POST['recipe_id'];

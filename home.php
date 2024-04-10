@@ -84,10 +84,11 @@ if(!isset($_SESSION['user_id'])) {
       </div>
       <nav class="nav-items">
         <ul>
-          <li><a href="#">Home</a></li>
-          <li><a href="#">About</a></li>
-          <li><a href="#">Browse Recipes</a></li>
-          <li><a href="#">Contact</a></li>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="browse_recipes.php">Browse Recipes</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="manage_recipes.php">Manage Recipes</a></li>
         </ul>
       </nav>
       <p>(c) SavorPalette, Inc. 2024. We love our users!</p>

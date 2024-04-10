@@ -1,5 +1,5 @@
 <?php
-// Include the database connection file
+
 $mysqli = require 'database.php';
 
 // Function to get recipe details by recipe ID
@@ -36,7 +36,7 @@ if (isset($_GET['recipe_id'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>View Recipe</title>
     <style>
-        /* Add your CSS styles here */
+        
         .recipe-details {
             max-width: 600px;
             margin: 0 auto;

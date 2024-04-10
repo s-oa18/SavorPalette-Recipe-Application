@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-// Include the database connection file
+
 $mysqli = require 'database.php';
 
 // Check if user is logged in
@@ -30,7 +30,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['recipe_id'])) {
         echo "Recipe is already saved.";
         exit();
     } else {
-        // Recipe is not saved, insert it into saved_recipes table
+        
         $insert_saved_sql = "INSERT INTO saved_recipes (user_id, recipe_id) VALUES (?, ?)";
         $insert_saved_stmt = $mysqli->prepare($insert_saved_sql);
         $insert_saved_stmt->bind_param("ii", $user_id, $recipe_id);
