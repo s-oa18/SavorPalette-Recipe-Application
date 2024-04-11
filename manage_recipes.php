@@ -76,18 +76,53 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['search'])) {
             max-width: 100%;
             height: auto;
         }
+
+        h2 {
+            color: #f53132;
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        p {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        form {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        
+        input[type="text"] {
+            padding: 10px;
+            margin-right: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        
+        button[type="submit"] {
+            padding: 10px 20px;
+            background-color: rgb(234, 179, 5);
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
+    
     <h2>Manage Recipes</h2>
     <p><a href="home.php">Home</a></p>
+
+    <h2><a href="add_recipe.html">Add Recipe</a></h2>
 
     <form action="" method="GET">
         <input type="text" name="search" placeholder="Search your recipes">
         <button type="submit">Search</button>
     </form>
-
-    <h2><a href="add_recipe.html">Add Recipe</a></h2>
 
     <div class="recipe-container">
         <?php foreach ($userRecipes as $recipe): ?>

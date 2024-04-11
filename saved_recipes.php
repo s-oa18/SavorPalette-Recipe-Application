@@ -55,7 +55,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['remove_recipe_id'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Saved Recipes</title>
-    <style>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <!-- <style>
         /* Add your CSS styles here */
         .recipe-container {
             display: grid;
@@ -70,10 +71,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['remove_recipe_id'])) {
             max-width: 100%;
             height: auto;
         }
-    </style>
+    </style> -->
 </head>
 <body>
     <h2>Saved Recipes</h2>
+    <a href="browse_recipes.php">Browse All Recipes</a>
 
     <!-- Display saved recipes -->
     <div class="recipe-container">

@@ -19,8 +19,57 @@ $chef_count = $chef_count_result->fetch_assoc()['chef_count'];
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Panel</title>
-    
+    <title>SavorPalette - Admin Panel</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        h3 {
+            color: #555;
+        }
+
+        p {
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        tr:hover {
+            background-color: #f9f9f9;
+        }
+
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
     <h2>Welcome to the Admin Panel</h2>

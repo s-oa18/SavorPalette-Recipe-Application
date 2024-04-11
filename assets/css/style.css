@@ -19,7 +19,7 @@ body {
 }
 
 .nav-items {
-  padding-top: 25px;
+  padding-top: 23px;
 }
 
 nav ul {
@@ -46,12 +46,12 @@ li a:hover {
 }
 
 .register {
-  padding: 15px 10px;
+  padding: 20px 10px;
 }
 .login {
   border: 0;
   margin-right: 20px;
-  padding: 10px 20px 10px 20px;
+  padding: 20px 20px 10px 20px;
   background-color: white;
   cursor: pointer;
   color: #000000;
@@ -71,12 +71,14 @@ li a:hover {
   justify-content: center;
   align-items: center;
   min-height: 500px;
-  background-image: url("../images/hero_image.jpg");
+  background-image: url("../images/main_hero_image.jpg");
   background-position: center;
   background-repeat: none;
   background-size: cover;
   background-size: 100%;
   border-radius: 20px;
+  margin-top: 30px;
+  margin-bottom: 30px;
 }
 
 .hero-text {
@@ -92,38 +94,52 @@ li a:hover {
 
 .hero-signup-link {
   background-color: transparent;
-  color: white;
+  color: white !important;
   border: 0;
   cursor: pointer;
-}
-
-.recipe-start {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  min-height: 80px;
-}
-
-.search {
-  padding-top: 10px;
-}
-
-.sort {
-  padding-top: 10px;
-}
-
-.recipe-display {
-  min-height: 500px;
 }
 
 .subscribe-section {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 20px 0 20px;
+  padding: 20px 0;
   background-color: #eb4936;
   border-radius: 20px;
   height: 200px;
+  margin: 50px 0 50px;
+}
+
+.subscribe-section h3 {
+  color: white;
+  margin-right: 20px;
+}
+
+.subscribe-section form {
+  display: flex;
+  align-items: center;
+}
+
+.subscribe-section input[type="email"] {
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  margin-right: 10px;
+  width: 250px;
+}
+
+.subscribe-section input[type="button"] {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: rgb(234, 179, 5);
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.subscribe-section input[type="button"]:hover {
+  background-color: #e0b403;
 }
 
 /* Signup styling */
@@ -145,4 +161,12 @@ li a:hover {
 .recipe-card img {
   max-width: 100%;
   height: auto;
+}
+
+.footer-container {
+  background-color: #f2f2f2;
+  padding: 20px 0;
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 0 20px 0;
 }

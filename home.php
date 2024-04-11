@@ -14,7 +14,7 @@ if(!isset($_SESSION['user_id'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Savor Palette Recipes</title>
     <link rel="stylesheet" href="assets/css/style.css" />
-    <link rel="stylesheet" href="assets/css/templatecolourss.css" />
+    <link rel="stylesheet" href="assets/css/home.css" />
   </head>
   <body>
     <header class="header-container">
@@ -27,46 +27,50 @@ if(!isset($_SESSION['user_id'])) {
 
       <nav class="nav-items">
         <ul>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="about.html">About</a></li>
+          <li><a href="home.php">Home</a></li>
+          
           <li><a href="browse_recipes.php">Browse Recipes</a></li>
-          <li><a href="contact.html">Contact</a></li>
+          
           <li><a href="manage_recipes.php">Manage Recipes</a></li>
         </ul>
       </nav>
 
       <div class="register">
-      <p><a href="logout.php">Logout</a></p>
+      <p><a class="signup" href="logout.php">Logout</a></p>
       </div>
     </header>
 
     <main>
       <section class="hero">
         <div class="hero-text">
-          <h2>Welcome to SavorPalette: Your Culinary Adventure begins here!</h2>
-          <button class="hero-signup-link">Sign Up Today</button>
-          <img
-            style="width: 30px"
-            src="assets/images/arrow.svg"
-            alt=""
-            srcset=""
-          />
+          <<h2>Welcome to SavorPalette: Your Culinary Adventure begins here!</h2>
+          
         </div>
       </section>
       <section class="recipe-start">
         <h2>Recipes</h2>
-        <div class="search">
-          <input type="text" />
-          <button>Search</button>
+        <div class="recipe-container">
+          <div class="recipe-card">
+            <img src="assets/images/chickensatay.jpg" alt="Recipe 1" />
+            <h3>Chicken Satay</h3>
+            <p>Grilled marinated chicken skewers served with peanut sauce.</p>
+          </div>
+
+          <div class="recipe-card">
+            <img src="assets/images/Jollof Rice.jpg" alt="Recipe 2" />
+            <h3>Jollof Rice</h3>
+            <p>Popular West African dish made with rice, tomatoes, onions, and spices.</p>
+          </div>
+
+          <div class="recipe-card">
+            <img src="assets/images/capressesalad.jpg" alt="Recipe 3" />
+            <h3>Capresse Salad</h3>
+            <p>Classic Italian salad made with fresh tomatoes, mozzarella cheese, basil, and balsamic glaze</p>
+          </div>
         </div>
-        <div class="sort">
-          <button>Sort by category</button>
-          <button>sort by location</button>
+        <div class="view-all-button">
+          <a href="browse_recipes.php">View All</a>
         </div>
-      </section>
-      <section class="recipe-display">
-        <aside class="aside-left"></aside>
-        <aside class="aside-right"></aside>
       </section>
 
       <section class="subscribe-section">
@@ -78,7 +82,7 @@ if(!isset($_SESSION['user_id'])) {
       </section>
     </main>
 
-    <footer class="header-container">
+    <footer class="footer-container">
       <div>
         <img src="assets/images/Untitled design copy.png" alt="" />
       </div>

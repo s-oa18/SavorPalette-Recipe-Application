@@ -1,0 +1,89 @@
+body {
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  background-color: #f2f2f2;
+}
+
+.login-container {
+  display: flex;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-container {
+  flex: 1;
+  padding-right: 20px;
+}
+
+form {
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+form div {
+  margin-bottom: 10px;
+}
+
+form label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+form input[type="email"],
+form input[type="password"],
+form select {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+form input[type="submit"] {
+  width: 100%;
+  padding: 10px;
+  background-color: #f53132;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.image-container {
+  flex: 1;
+  padding-left: 20px;
+}
+
+.image-container img {
+  max-width: 100%;
+  height: auto;
+}
+
+.new_user {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.new_user p {
+  margin: 5px 0;
+}
+
+.new_user a {
+  color: #f53132;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.new_user a:hover {
+  text-decoration: underline;
+}

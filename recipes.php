@@ -100,6 +100,7 @@ form select {
     box-sizing: border-box;
 }
 
+
 form button {
     padding: 10px 20px;
     background-color: rgb(234, 179, 5);
@@ -112,7 +113,7 @@ form button {
 </head>
 <body>
     <h2>Browse Recipes</h2>
-    <p><a href="logout.php">Logout</a></p>
+    <p><a href="index.html">Home</a></p>
     
     
     <!-- Search form -->
@@ -145,7 +146,7 @@ form button {
                 <img src="<?= $recipe['image_url'] ?>" alt="<?= $recipe['title'] ?>">
                 <h3><?= $recipe['title'] ?></h3>
                 <p>By: <?= $recipe['username'] ?></p>
-                <a style="color:black;" href="view_recipe.php?recipe_id=<?= $recipe['recipe_id'] ?>">View</a>
+                <a style="color:black" href="view_recipe.php?recipe_id=<?= $recipe['recipe_id'] ?>">View</a>
                 <form action="save_recipe.php" method="post">
                 <input type="hidden" name="recipe_id" value="<?= $recipe['recipe_id'] ?>">
                 <button type="submit">Bookmark</button>

@@ -1,5 +1,4 @@
 
-
 <?php
 session_start(); 
 
@@ -49,43 +48,52 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     <script src="https://unpkg.com/just-validate@latest/dist/just-validate.production.min.js" ></script>
     <script src="/js/validation.js" defer></script>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/login.css">
+
 </head>
 <body>
-    
-    <h1>Login</h1>
-    
-    <?php if ($is_invalid): ?>
-        <em>Invalid login</em>
-    <?php endif; ?>
-    
-    <form method="post">
-        <div>
-        <label for="email">email</label>
-        <input type="email" name="email" id="email"
-               value="<?= htmlspecialchars($_POST["email"] ?? "") ?>">
-        </div>
-        
-        <div>
-        <label for="password">Password</label>
-        <input type="password" name="password" id="password">
+    <div class="login-container">
+        <div class="form-container">
+            <h1>Login</h1>
+
+            <?php if ($is_invalid): ?>
+                <em>Invalid login</em>
+            <?php endif; ?>
+
+            <form method="post">
+                <div>
+                    <label for="email">Email</label>
+                    <input type="email" name="email" id="email" value="<?= htmlspecialchars($_POST["email"] ?? "") ?>">
+                </div>
+
+                <div>
+                    <label for="password">Password</label>
+                    <input type="password" name="password" id="password">
+                </div>
+
+                <div>
+                    <label for="role">Role:</label>
+                    <select name="role" id="role" required>
+                        <option value="recipe_seeker">Recipe Seeker</option>
+                        <option value="cook_chef">Cook or Chef</option>
+                        <option value="admin">Administrator</option>
+                    </select>
+                </div>
+
+                <input type="submit" value="Login">
+            </form>
+
+            <div class="new_user">
+                <p class="new">Already a User?</p>
+                <p><a class="register" href="signup.html">Sign up</a></p>
+            </div>
         </div>
 
-        <div>
-        <label for="role">Role:</label>
-        <select name="role" id="role" required>
-          <option value="recipe_seeker">Recipe Seeker</option>
-          <option value="cook_chef">Cook or Chef</option>
-          <option value="admin">Administrator</option>
-        </select>
-      </div>
-        
-        <input type="submit" value="Login">
-    </form>
-    <div class="new_user">
-      <p class="new">Already a User?</p>
-      <p><a class="register" href="signup.html">Sign up</a></p>
+        <div class="image-container">
+            <img src="assets/images/bobotie.jpeg" alt="Image">
+        </div>
     </div>
-    
 </body>
 </html>
 
