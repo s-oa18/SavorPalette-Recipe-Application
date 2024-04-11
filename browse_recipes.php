@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 $mysqli = require 'database.php';
 
 // Function to fetch all recipes from the database
