@@ -72,10 +72,10 @@ li a:hover {
   align-items: center;
   min-height: 500px;
   background-image: url("../images/main_hero_image.jpg");
-  background-position: center;
-  background-repeat: none;
+  /* background-position: center; */
+  /* background-repeat: no-repeat; */
   background-size: cover;
-  background-size: 100%;
+  /* background-size: 100%; */
   border-radius: 20px;
   margin-top: 30px;
   margin-bottom: 30px;
