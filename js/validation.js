@@ -1,7 +1,7 @@
 const validation = new JustValidate("#signup");
 
 validation
-  .addField("#name", [
+  .addField("#username", [
     {
       rule: "required",
     },
