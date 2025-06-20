@@ -1,4 +1,4 @@
-version: "3.8"
+# version: "3.8"
 
 services:
   app:
@@ -10,8 +10,8 @@ services:
       - "8080:80"
     volumes:
       - .:/var/www/html
-    depends_on:
-      - db
+    # depends_on:
+    #   - db
     environment:
       DB_HOST: ${DB_HOST}
       DB_USER: ${DB_USER}
@@ -20,23 +20,23 @@ services:
     networks:
       - savorpalette-net
 
-  db:
-    image: mysql:8.0
-    container_name: savorpalette-db
-    restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
-      MYSQL_DATABASE: ${DB_NAME}
-    ports:
-      - "3307:3306"
-    volumes:
-      - db_data:/var/lib/mysql
-      - ./db-init:/docker-entrypoint-initdb.d
-    networks:
-      - savorpalette-net
+  # db:
+  #   image: mysql:8.0
+  #   container_name: savorpalette-db
+  #   restart: always
+  #   environment:
+  #     MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+  #     MYSQL_DATABASE: ${DB_NAME}
+  #   ports:
+  #     - "3307:3306"
+  #   volumes:
+  #     - db_data:/var/lib/mysql
+  #     - ./db-init:/docker-entrypoint-initdb.d
+  # networks:
+  #   - savorpalette-net
 
-volumes:
-  db_data:
+# volumes:
+#   db_data:
 
 networks:
   savorpalette-net:
