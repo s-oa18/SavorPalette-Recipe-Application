@@ -1,2 +1,38 @@
-/.DS_Store
+# Ignore environment variables (DO NOT expose secrets)
 .env
+
+# Composer dependencies (if you want to rebuild in container only)
+vendor/
+
+# OS-specific files (especially from macOS)
+.DS_Store
+__MACOSX/
+
+# Editor/IDE configs
+.vscode/
+.idea/
+
+# Log files and temp data
+*.log
+*.tmp
+*.swp
+
+# Node modules (if JS packages are used)
+node_modules/
+
+# Docker
+*.pid
+*.sock
+
+# Ignore Docker build artifacts (optional)
+*.tar
+*.zip
+
+# Git
+.gitignore
+
+# Optional: PHP built-in server cache
+.phpunit.result.cache
+
+# Optional: if using PHPUnit or coverage tools
+coverage/
