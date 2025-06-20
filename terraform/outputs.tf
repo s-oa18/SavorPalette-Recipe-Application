@@ -6,7 +6,7 @@ output "rds_endpoint" {
 output "github_actions_access_key_id" {
   value       = aws_iam_access_key.github_actions.id
   description = "Access Key ID for GitHub Actions"
-  sensitive   = true
+  sensitive   = false
 }
 
 output "github_actions_secret_access_key" {
