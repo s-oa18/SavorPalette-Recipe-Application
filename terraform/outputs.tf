@@ -14,3 +14,16 @@ output "github_actions_secret_access_key" {
   description = "Secret Access Key for GitHub Actions"
   sensitive   = true
 }
+
+# EKS
+output "cluster_name" {
+  value = module.eks.cluster_name
+}
+
+output "kubeconfig" {
+  value = module.eks.kubeconfig
+}
+
+output "cluster_endpoint" {
+  value = module.eks.cluster_endpoint
+}

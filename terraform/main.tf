@@ -55,3 +55,30 @@ resource "aws_route_table_association" "private_b" {
   subnet_id      = aws_subnet.private_b.id
   route_table_id = aws_route_table.private.id
 }
+
+
+# EKS
+module "eks" {
+  source          = "terraform-aws-modules/eks/aws"
+  cluster_name    = "savorpalette-eks"
+  cluster_version = "1.29"
+
+  subnet_ids              = [aws_subnet.private_a.id, aws_subnet.private_b.id]
+  vpc_id                  = aws_vpc.main.id
+  enable_irsa             = true
+
+  eks_managed_node_groups = {
+    default = {
+      desired_capacity = 2
+      max_capacity     = 3
+      min_capacity     = 1
+
+      instance_types = ["t3.medium"]
+    }
+  }
+
+  tags = {
+    Environment = "production"
+    Project     = "SavorPalette"
+  }
+}
