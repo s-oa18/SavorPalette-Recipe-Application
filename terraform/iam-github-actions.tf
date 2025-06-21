@@ -24,7 +24,7 @@ resource "aws_iam_policy" "ecr_push_policy" {
         Effect = "Allow",
         Action = [
           "ecr:BatchCheckLayerAvailability",
-          "ecr:CompleteMultipartUpload",
+          "ecr:CompleteLayerUpload",
           "ecr:GetDownloadUrlForLayer",
           "ecr:BatchGetImage",
           "ecr:PutImage",
