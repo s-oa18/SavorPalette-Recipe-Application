@@ -28,8 +28,3 @@ output "cluster_ca_certificate" {
   value = module.eks.cluster_certificate_authority_data
 }
 
-# Bastion Output
-output "bastion_public_ip" {
-  value = aws_instance.bastion.public_ip
-    description = "Public IP of the Bastion host"
-}
