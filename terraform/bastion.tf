@@ -1,12 +1,12 @@
+# fetch public ip
+data "http" "my_ip" {
+  url = "https://api.ipify.org"
+}
+
 # Key Pair Resource
 resource "aws_key_pair" "bastion_key" {
   key_name   = "bastion-key"
   public_key = file("~/.ssh/bastion-key.pub")
-}
-
-# fetch public ip
-data "http" "my_ip" {
-  url = "https://api.ipify.org"
 }
 
 # Bastion Host Security Group
@@ -66,7 +66,4 @@ resource "aws_instance" "bastion" {
   }
 }
 
-# Bastion Output
-output "bastion_public_ip" {
-  value = aws_instance.bastion.public_ip
-}
+
