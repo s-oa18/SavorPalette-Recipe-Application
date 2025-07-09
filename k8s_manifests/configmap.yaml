@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-config
+  namespace: savorpalette
+data:
+  DB_HOST: savorpalette-db.cxq8sagsmi4o.eu-west-1.rds.amazonaws.com
+  DB_NAME: savorpalette

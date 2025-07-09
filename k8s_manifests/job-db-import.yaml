@@ -1,0 +1,48 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: db-import-job
+  namespace: savorpalette
+spec:
+  template:
+    spec:
+      containers:
+        - name: mysql-client
+          image: mysql:8.0
+          command: ["/bin/sh", "-c"]
+          args:
+            - |
+              mysql -h "$DB_HOST" \
+                    -u "$DB_USER" \
+                    -p"$DB_PASS" \
+                    "$DB_NAME" < /sql/recipe_login_db.sql
+          env:
+            - name: DB_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: app-config
+                  key: DB_HOST
+            - name: DB_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: app-config
+                  key: DB_NAME
+            - name: DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: db-secret
+                  key: DB_USER
+            - name: DB_PASS
+              valueFrom:
+                secretKeyRef:
+                  name: db-secret
+                  key: DB_PASS
+          volumeMounts:
+            - name: sql-volume
+              mountPath: /sql
+      restartPolicy: Never
+      volumes:
+        - name: sql-volume
+          configMap:
+            name: sql-script
+  backoffLimit: 1

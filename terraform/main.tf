@@ -1,84 +1,60 @@
-# Create an internet gateway for the public subnets
-resource "aws_internet_gateway" "igw" {
-  vpc_id = aws_vpc.main.id
+provider "aws" {
+  region = var.aws_region
 }
 
-# Elastic IP for the NAT gateway
-resource "aws_eip" "nat" {
-  
+module "vpc" {
+  source          = "./modules/vpc"
+  vpc_cidr        = var.vpc_cidr
+  public_subnets  = var.public_subnets
+  private_subnets = var.private_subnets
+  azs             = var.azs
+  name_prefix     = var.name_prefix
 }
 
-# NAT gateway in public subnet A (so private subnets can reach the internet)
-resource "aws_nat_gateway" "nat" {
-  allocation_id = aws_eip.nat.id
-  subnet_id     = aws_subnet.public_a.id
-}
+resource "aws_security_group" "rds_sg" {
+  name        = "${var.name_prefix}-rds-sg"
+  description = "Allow MySQL traffic from EKS nodes"
+  vpc_id      = module.vpc.vpc_id
 
-# Public route table for outbound internet access
-resource "aws_route_table" "public" {
-  vpc_id = aws_vpc.main.id
-
-  route {
-    cidr_block = "0.0.0.0/0"
-    gateway_id = aws_internet_gateway.igw.id
+  ingress {
+    from_port   = 3306
+    to_port     = 3306
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
   }
-}
 
-# Associate public subnets with the public route table
-resource "aws_route_table_association" "public_a" {
-  subnet_id      = aws_subnet.public_a.id
-  route_table_id = aws_route_table.public.id
-}
-
-resource "aws_route_table_association" "public_b" {
-  subnet_id      = aws_subnet.public_b.id
-  route_table_id = aws_route_table.public.id
-}
-
-# Private route table to allow outbound traffic via NAT gateway
-resource "aws_route_table" "private" {
-  vpc_id = aws_vpc.main.id
-
-  route {
-    cidr_block     = "0.0.0.0/0"
-    nat_gateway_id = aws_nat_gateway.nat.id
-  }
-}
-
-# Associate private subnets with the private route table
-resource "aws_route_table_association" "private_a" {
-  subnet_id      = aws_subnet.private_a.id
-  route_table_id = aws_route_table.private.id
-}
-
-resource "aws_route_table_association" "private_b" {
-  subnet_id      = aws_subnet.private_b.id
-  route_table_id = aws_route_table.private.id
-}
-
-
-# EKS
-module "eks" {
-  source          = "terraform-aws-modules/eks/aws"
-  cluster_name    = "savorpalette-eks"
-  cluster_version = "1.29"
-
-  subnet_ids              = [aws_subnet.private_a.id, aws_subnet.private_b.id]
-  vpc_id                  = aws_vpc.main.id
-  enable_irsa             = true
-
-  eks_managed_node_groups = {
-    default = {
-      desired_capacity = 2
-      max_capacity     = 3
-      min_capacity     = 1
-
-      instance_types = ["t3.medium"]
-    }
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
   }
 
   tags = {
-    Environment = "production"
-    Project     = "SavorPalette"
+    Name = "${var.name_prefix}-rds-sg"
   }
+}
+
+module "rds" {
+  source        = "./modules/rds"
+  name_prefix   = var.name_prefix
+  subnet_ids    = module.vpc.private_subnet_ids
+  db_sg_id      = aws_security_group.rds_sg.id
+  db_name       = var.db_name
+  db_username   = var.db_username
+  db_password   = var.db_password
+}
+
+module "eks" {
+  source        = "./modules/eks"
+  name_prefix   = var.name_prefix
+  vpc_id        = module.vpc.vpc_id
+  subnet_ids    = module.vpc.public_subnet_ids
+  cluster_name  = var.cluster_name
+}
+
+module "ecr" {
+  source = "./modules/ecr"
+  name = "${var.name_prefix}-app"
+  
 }
