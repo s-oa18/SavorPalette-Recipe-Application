@@ -59,6 +59,10 @@ jobs:
             --region $AWS_REGION \
             --name $CLUSTER_NAME
 
+      - name: Apply ClusterRoleBinding
+        run: |
+          kubectl apply -f k8s_manifests/rolebinding.yaml
+
       - name: Apply Kubernetes namespace
         run: kubectl apply -f k8s_manifests/namespace.yaml
 

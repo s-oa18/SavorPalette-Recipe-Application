@@ -11,22 +11,17 @@ module "eks" {
   cluster_endpoint_public_access  = true
   cluster_endpoint_private_access = true
 
-  # Automatically grants access to the current Terraform IAM user
   enable_cluster_creator_admin_permissions = true
 
   access_entries = {
-    seth_user = {
+    iam_user = {
       principal_arn     = "arn:aws:iam::728594302455:user/SethAmpofo"
-      kubernetes_groups = []
+      kubernetes_groups = ["eks-admins"]  
+    }
 
-      policy_associations = {
-        admin = {
-          policy_arn = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSClusterAdminPolicy"
-          access_scope = {
-            type = "cluster"
-          }
-        }
-      }
+    github_actions = {
+      principal_arn     = "arn:aws:iam::728594302455:role/GitHubActionsOIDC-SavorPaletteApp"
+      kubernetes_groups = ["eks-admins"] 
     }
   }
 
