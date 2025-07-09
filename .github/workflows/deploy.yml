@@ -61,7 +61,7 @@ jobs:
 
       - name: Apply ClusterRoleBinding
         run: |
-          kubectl apply -f k8s_manifests/rolebinding.yaml
+          kubectl apply -f k8s_manifests/rolebinding.yaml --validate=false
 
       - name: Apply Kubernetes namespace
         run: kubectl apply -f k8s_manifests/namespace.yaml
