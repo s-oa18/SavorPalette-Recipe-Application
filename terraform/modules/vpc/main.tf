@@ -21,9 +21,12 @@ resource "aws_subnet" "public" {
   availability_zone       = var.azs[count.index]
   map_public_ip_on_launch = true
   tags = {
-    Name = "${var.name_prefix}-public-${count.index}"
+    Name                                        = "${var.name_prefix}-public-${count.index}"
+    "kubernetes.io/role/elb"                   = "1"
+    "kubernetes.io/cluster/${var.cluster_name}" = "shared"
   }
 }
+
 
 resource "aws_subnet" "private" {
   count             = length(var.private_subnets)
@@ -31,9 +34,12 @@ resource "aws_subnet" "private" {
   cidr_block        = var.private_subnets[count.index]
   availability_zone = var.azs[count.index]
   tags = {
-    Name = "${var.name_prefix}-private-${count.index}"
+    Name                                        = "${var.name_prefix}-private-${count.index}"
+    "kubernetes.io/role/internal-elb"          = "1"
+    "kubernetes.io/cluster/${var.cluster_name}" = "shared"
   }
 }
+
 
 resource "aws_nat_gateway" "nat" {
   allocation_id = aws_eip.nat.id
