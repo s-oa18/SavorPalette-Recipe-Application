@@ -66,8 +66,12 @@ jobs:
       - name: Apply Kubernetes namespace
         run: kubectl apply -f k8s_manifests/namespace.yaml
 
-      - name: Apply DB Secret
-        run: kubectl apply -f k8s_manifests/secret.yaml
+      - name: Create K8s Secret
+        run: |
+          kubectl create secret generic db-secret \
+            --from-literal=DB_USER=${{ secrets.DB_USER }} \
+            --from-literal=DB_PASS=${{ secrets.DB_PASS }} \
+            -n savorpalette --dry-run=client -o yaml | kubectl apply -f -
 
       - name: Apply ConfigMap (DB variables)
         run: kubectl apply -f k8s_manifests/configmap.yaml

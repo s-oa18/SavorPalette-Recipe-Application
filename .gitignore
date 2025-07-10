@@ -65,3 +65,4 @@ stop-output.json
 
 k8s_manifests/secrets.yaml
 k8s_manifests/secrets.yaml
+k8s_manifests/secret.yaml
